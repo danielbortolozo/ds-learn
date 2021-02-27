@@ -1,0 +1,5 @@
+package br.com.sisdb.dslearn.entities.enums;
+
+public enum DeliverStatus {
+    PENDING, ACCEPTED, REJECTED;
+}
