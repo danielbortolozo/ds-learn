@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "usuario")
@@ -26,6 +24,9 @@ public class User implements Serializable {
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Notification> notifications = new ArrayList<>();
 
     public User() {
     }
@@ -72,6 +73,11 @@ public class User implements Serializable {
     public Set<Role> getRoles() {
         return roles;
     }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
 
     @Override
     public boolean equals(Object o) {
