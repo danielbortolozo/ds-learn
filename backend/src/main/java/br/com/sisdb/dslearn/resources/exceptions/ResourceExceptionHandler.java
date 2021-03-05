@@ -2,7 +2,9 @@ package br.com.sisdb.dslearn.resources.exceptions;
 
 
 import br.com.sisdb.dslearn.services.exceptions.DataBaseException;
+import br.com.sisdb.dslearn.services.exceptions.ForbiddenException;
 import br.com.sisdb.dslearn.services.exceptions.ResourceNotFoundException;
+import br.com.sisdb.dslearn.services.exceptions.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -56,7 +58,19 @@ public class ResourceExceptionHandler {
 		}
 		return ResponseEntity.status(status).body(err);
 	}
-	
-	
+
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<OAuthCustomError> forbidden(ForbiddenException e, HttpServletRequest request)  {
+		OAuthCustomError error = new OAuthCustomError("Forbidden", e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+	}
+
+	@ExceptionHandler(UnauthorizedException.class)
+	public ResponseEntity<OAuthCustomError> unauthorized(UnauthorizedException e, HttpServletRequest request)  {
+		OAuthCustomError error = new OAuthCustomError("Unauthorized", e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+	}
 	
 }
