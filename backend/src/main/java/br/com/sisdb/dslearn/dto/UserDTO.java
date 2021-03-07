@@ -3,9 +3,11 @@ package br.com.sisdb.dslearn.dto;
 import br.com.sisdb.dslearn.entities.User;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class UserDTO {
+public class UserDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
